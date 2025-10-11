@@ -1,7 +1,7 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from '../database/prisma.service';
 import { TaskDto } from './task.dto';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '../../generated/prisma';
 import { PrismaError } from '../database/prisma-error.enum';
 
 @Injectable()
@@ -27,6 +27,7 @@ export class TasksService {
     if (!task) {
       throw new NotFoundException();
     }
+    return task;
   }
 
   async delete(id: number) {
