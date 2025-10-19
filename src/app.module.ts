@@ -1,9 +1,19 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { TasksModule } from './tasks/tasks.module';
+import { ConfigModule } from '@nestjs/config';
+import Joi from 'joi';
 
 @Module({
-  imports: [],
+  imports: [
+    TasksModule,
+    ConfigModule.forRoot({
+      validationSchema: Joi.object({
+        DATABASE_URL: Joi.string().required(),
+      }),
+    }),
+  ],
   controllers: [AppController],
   providers: [AppService],
 })
